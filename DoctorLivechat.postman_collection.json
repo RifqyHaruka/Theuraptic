@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "8679a8f0-6d3e-421c-a3c7-e501626f519f",
+		"name": "DoctorLivechat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "test123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "testing",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "phone_number",
+							"value": "081273482932",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://api.loradigital.com/public/api/register",
+					"protocol": "http",
+					"host": [
+						"api",
+						"loradigital",
+						"com"
+					],
+					"path": [
+						"public",
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "coba",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://api.loradigital.com/public/api/login",
+					"protocol": "http",
+					"host": [
+						"api",
+						"loradigital",
+						"com"
+					],
+					"path": [
+						"public",
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 7|WQaTU0SnUIi7OaPO6G3uqfXLajH4CRNBfwsufDPa",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://api.loradigital.com/public/api/user",
+					"protocol": "http",
+					"host": [
+						"api",
+						"loradigital",
+						"com"
+					],
+					"path": [
+						"public",
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|SSfac5EnvVuy0NjcJRpDf1rCUeIyqyBA6Jq7hTJe",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "ganticoba",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "ganticoba@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "ganticoba",
+							"type": "text"
+						},
+						{
+							"key": "phone_number",
+							"value": "081273482934",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://api.loradigital.com/public/api/user",
+					"protocol": "http",
+					"host": [
+						"api",
+						"loradigital",
+						"com"
+					],
+					"path": [
+						"public",
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|SSfac5EnvVuy0NjcJRpDf1rCUeIyqyBA6Jq7hTJe",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://api.loradigital.com/public/api/logout",
+					"protocol": "http",
+					"host": [
+						"api",
+						"loradigital",
+						"com"
+					],
+					"path": [
+						"public",
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
