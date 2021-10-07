@@ -55,7 +55,7 @@ class CategoryService {
       // CategoryGet category = CategoryGet.fromJson(data['']);
 
     } else {
-      throw Exception('gagal ambil data');
+      throw Exception('gagal ambil data coba github');
     }
   }
 }
