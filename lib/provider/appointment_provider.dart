@@ -26,11 +26,11 @@ class AppointmentProvider with ChangeNotifier {
     }
   }
 
-  String _nilai = '';
+  int _nilai = 1;
 
-  String get getNilai => _nilai;
+  int get getNilai => _nilai;
 
-  set setNilai(String value) {
+  set setNilai(int value) {
     _nilai = value;
     notifyListeners();
   }

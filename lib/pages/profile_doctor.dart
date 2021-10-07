@@ -391,9 +391,8 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => JumlahPertemuan(
-                                widget.dokter!.price as int,
-                                widget.dokter!.id as int)));
+                            builder: (context) =>
+                                JumlahPertemuan(widget.dokter as DoctorModel)));
                   },
                   child: Container(
                     height: 55,
