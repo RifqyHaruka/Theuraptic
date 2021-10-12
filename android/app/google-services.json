@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948254195988:android:9c70951b159aac0d59c201",
+        "android_client_info": {
+          "package_name": "com.example.theuraptic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948254195988-ur0jsp3ij9ua6bih13rqmqiits8cnbcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoxrJmniC4_vZPYSwbFQ4VZA8iy1m4EJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948254195988-ur0jsp3ij9ua6bih13rqmqiits8cnbcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

@@ -37,6 +37,7 @@ dependencies:
   whatsapp_unilink: ^2.0.0
   webview_flutter: ^2.0.13
   intl: ^0.17.0
+  flutter_datetime_picker: ^1.5.1
 
   
 

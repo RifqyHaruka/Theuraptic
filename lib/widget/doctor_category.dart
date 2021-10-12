@@ -3,6 +3,7 @@ import 'package:haldac/model/category_model.dart';
 import 'package:haldac/model/dokter_model.dart';
 import 'package:haldac/pages/profile_doctor.dart';
 import 'package:haldac/theme.dart';
+import 'package:intl/intl.dart';
 import 'foto.dart';
 
 class DoctorCategoryCard extends StatelessWidget {
@@ -39,7 +40,8 @@ class DoctorCategoryCard extends StatelessWidget {
                   style:
                       primaryText.copyWith(fontSize: 16, fontWeight: regular),
                 ),
-                Text('RP ${dokter!.price}',
+                Text(
+                    '${NumberFormat.currency(locale: 'id').format(dokter!.price)}',
                     style:
                         secondaryText.copyWith(fontSize: 12, fontWeight: light))
               ],

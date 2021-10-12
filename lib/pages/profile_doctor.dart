@@ -8,6 +8,7 @@ import 'package:haldac/provider/appointment_provider.dart';
 import 'package:haldac/provider/auth_provider.dart';
 import 'package:haldac/theme.dart';
 import 'package:haldac/widget/foto.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,34 +29,9 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
 
   @override
   Widget build(BuildContext context) {
-    chatWhatsapp() async {
-      final link = WhatsAppUnilink(
-          phoneNumber: '+62(${widget.dokter!.phone})',
-          text: 'Halo ini dikirim dari aplikasi');
-
-      await launch('$link');
-    }
-
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     AppointmentProvider appointmentProvider =
         Provider.of<AppointmentProvider>(context);
-
-    handleMidtrans() async {
-      if (await appointmentProvider.getAppointment(
-          authProvider.user.id,
-          widget.dokter!.id,
-          widget.dokter!.price,
-          authProvider.user.name,
-          authProvider.user.email,
-          authProvider.user.token as String)) {
-        print(appointmentProvider.appointment.url);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    WebViewe(appointmentProvider.appointment.url)));
-      }
-    }
 
     // Widget photoProfile() {
     //   return Container(
@@ -203,6 +179,22 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
     //   ),
     // );
 
+    Widget tombolBack() {
+      return GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          margin: EdgeInsets.only(top: 40, left: 10),
+          child: Icon(
+            Icons.arrow_back_rounded,
+            size: 40,
+            color: white,
+          ),
+        ),
+      );
+    }
+
     Widget header() {
       return Expanded(
           // fit: FlexFit.loose,
@@ -211,9 +203,7 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
               width: double.infinity,
               color: hijauBlock,
               child: Container(
-                margin: EdgeInsets.only(top: 24),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     FotoBesar(),
@@ -226,7 +216,7 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
                           fontSize: 24, fontWeight: semiBold),
                     ),
                     Text(
-                      'Rp. ${widget.dokter!.price}/Sesi',
+                      ' ${NumberFormat.currency(locale: 'id').format(widget.dokter!.price)}/Sesi',
                       style:
                           whiteText.copyWith(fontSize: 18, fontWeight: regular),
                     )
@@ -260,7 +250,7 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
     Widget content() {
       return Expanded(
           child: Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(),
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
@@ -268,7 +258,7 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: Container(
-          margin: EdgeInsets.only(top: 30, left: 30),
+          margin: EdgeInsets.only(top: 20, left: 30),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -367,27 +357,7 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
                 // ),
                 GestureDetector(
                   onTap: () {
-                    chatWhatsapp();
-                  },
-                  child: Container(
-                    height: 55,
-                    margin: EdgeInsets.only(bottom: 10),
-                    width: MediaQuery.of(context).size.width - 60,
-                    decoration: BoxDecoration(
-                        color: buttonHijau,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Center(
-                      child: Text(
-                        'Chat Whatsapp',
-                        style: whiteText.copyWith(
-                            fontSize: 18, fontWeight: semiBold),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // handleMidtrans();
+                    // chatWhatsapp();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -395,21 +365,46 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
                                 JumlahPertemuan(widget.dokter as DoctorModel)));
                   },
                   child: Container(
-                    height: 55,
-                    margin: EdgeInsets.only(bottom: 30),
+                    height: 50,
+                    margin: EdgeInsets.only(bottom: 5),
                     width: MediaQuery.of(context).size.width - 60,
                     decoration: BoxDecoration(
                         color: buttonHijau,
                         borderRadius: BorderRadius.circular(12)),
                     child: Center(
                       child: Text(
-                        'Bayar dan Buat Janji',
+                        'Lanjutkan',
                         style: whiteText.copyWith(
                             fontSize: 18, fontWeight: semiBold),
                       ),
                     ),
                   ),
-                )
+                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     // handleMidtrans();
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) =>
+                //                 JumlahPertemuan(widget.dokter as DoctorModel)));
+                //   },
+                //   child: Container(
+                //     height: 55,
+                //     margin: EdgeInsets.only(bottom: 30),
+                //     width: MediaQuery.of(context).size.width - 60,
+                //     decoration: BoxDecoration(
+                //         color: buttonHijau,
+                //         borderRadius: BorderRadius.circular(12)),
+                //     child: Center(
+                //       child: Text(
+                //         'Bayar dan Buat Janji',
+                //         style: whiteText.copyWith(
+                //             fontSize: 18, fontWeight: semiBold),
+                //       ),
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),
@@ -424,8 +419,8 @@ class _ProfileDoctorState extends State<ProfileDoctor> {
         constraints:
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [header(), content()],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [tombolBack(), header(), content()],
         ),
       ),
     ));

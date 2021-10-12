@@ -15,10 +15,35 @@ class DoktorUmum extends StatelessWidget {
     CategoryProvider categoryProvider = Provider.of<CategoryProvider>(context);
     Widget header() {
       return Container(
-        margin: EdgeInsets.only(top: 100, left: 20, bottom: 10),
-        child: Text(
-          'Kunjungi Profil dan Pilih \nTenaga Profesional',
-          style: whiteText.copyWith(fontSize: 18, fontWeight: medium),
+        margin: EdgeInsets.only(top: 30, left: 20, bottom: 30),
+        child: Center(
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back_rounded,
+                  color: white,
+                  size: 30,
+                ),
+              ),
+              SizedBox(
+                width: 90,
+              ),
+              Center(
+                child: Text(
+                  'Pilih Dokter',
+                  style: whiteText.copyWith(fontSize: 18, fontWeight: medium),
+                ),
+              )
+              // Text(
+              //   'Pilih Dokter',
+              //   style: whiteText.copyWith(fontSize: 18, fontWeight: medium),
+              // ),
+            ],
+          ),
         ),
       );
     }
@@ -47,18 +72,20 @@ class DoktorUmum extends StatelessWidget {
           );
     }
 
-    return Scaffold(
-      backgroundColor: white,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                width: double.infinity,
-                decoration: BoxDecoration(color: hijauBlock),
-                child: header()),
-            content()
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: white,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: hijauBlock),
+                  child: header()),
+              content()
+            ],
+          ),
         ),
       ),
     );

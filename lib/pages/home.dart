@@ -90,14 +90,6 @@ class _HomePageState extends State<HomePage> {
                   label: ''),
               BottomNavigationBarItem(
                   icon: Image.asset(
-                    'assets/notificationIcon.png',
-                    width: 24,
-                    height: 24,
-                    color: (currentIndex == 1) ? primary : secondary,
-                  ),
-                  label: ''),
-              BottomNavigationBarItem(
-                  icon: Image.asset(
                     'assets/FavIcon.png',
                     width: 24,
                     height: 24,
@@ -121,10 +113,8 @@ class _HomePageState extends State<HomePage> {
         case 0:
           return MainPage();
           break;
-        case 1:
-          return ChatPage();
-          break;
-        case 3:
+
+        case 2:
           return PilihanProfile();
           break;
         default:

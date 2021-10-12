@@ -34,4 +34,12 @@ class AppointmentProvider with ChangeNotifier {
     _nilai = value;
     notifyListeners();
   }
+
+  String _waktu = '';
+
+  String get waktu => _waktu;
+  set waktu(String waktu) {
+    _waktu = waktu;
+    notifyListeners();
+  }
 }
