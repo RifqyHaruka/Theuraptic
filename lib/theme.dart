@@ -15,6 +15,8 @@ Color putihAgakBiasa = Color(0xffF9FDFA);
 Color border = Color(0xff686868);
 Color wa = Color(0xff00E676);
 Color containerPilihPertemuan = Color(0xffF5F5F5);
+Color containerDatePicker = Color(0xffF0F0F0);
+Color historyCard = Color(0xffECECEC);
 
 TextStyle primaryText = GoogleFonts.poppins(color: primary);
 
@@ -24,6 +26,8 @@ TextStyle whiteText = GoogleFonts.poppins(color: white);
 
 TextStyle blackText = GoogleFonts.poppins(color: Colors.black);
 TextStyle borderText = GoogleFonts.poppins(color: border);
+TextStyle dateText = GoogleFonts.poppins(color: Color(0xff3A3A3A));
+TextStyle price = GoogleFonts.poppins(color: hijauBlock);
 
 FontWeight light = FontWeight.w300;
 FontWeight regular = FontWeight.w400;

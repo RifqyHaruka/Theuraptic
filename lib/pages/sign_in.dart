@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:haldac/pages/lansia.dart';
 import 'package:haldac/provider/auth_provider.dart';
 import 'package:haldac/theme.dart';
 import 'package:haldac/widget/loading.dart';
@@ -30,14 +31,26 @@ class _SignInPageState extends State<SignInPage> {
       if (await authProvider.login(username.text, password.text)) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('token', authProvider.user.token as String);
-        // pref.setString('username', authProvider.user.username as String);
-        // pref.setString('name', authProvider.user.name as String);
+        pref.setString('roles', 'USER');
+        authProvider.roles = 'USER';
+
+        print('Ini roles : ' + authProvider.roles);
+
+        // if (authProvider.user.roles == 'DOCTOR') {
+        //   Navigator.pushAndRemoveUntil(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => InfoLansia()),
+        //       (route) => false);
+        // } else if (authProvider.user.roles == 'USER') {
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+
+        // }
+
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: buttonMerah,
             content: Text(
-              "Gagal Login, ada masalah",
+              "Gagal Login, Username Passwor tidak terdaftar",
               textAlign: TextAlign.center,
             )));
       }

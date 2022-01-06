@@ -9,6 +9,7 @@ class UserModel {
   String? token;
   int? currentId;
   String? roles;
+  String? profilePhotoUrl;
 
   UserModel(
       {this.id,
@@ -20,7 +21,8 @@ class UserModel {
       this.token,
       this.photoUrl,
       this.currentId,
-      this.roles});
+      this.roles,
+      this.profilePhotoUrl});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -33,6 +35,7 @@ class UserModel {
     photoUrl = json['photo'];
     currentId = json['current_team_id'];
     roles = json['roles'];
+    profilePhotoUrl = json['profile_photo_url'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,7 +48,8 @@ class UserModel {
       'access_token': token,
       'photo': photoUrl,
       'current_team_id': currentId,
-      'roles': roles
+      'roles': roles,
+      'profile_photo_url': profilePhotoUrl
     };
   }
 }

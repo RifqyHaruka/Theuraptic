@@ -3,6 +3,7 @@ import 'package:haldac/model/hospital_model.dart';
 
 class Dokter {
   int? id;
+
   String? name;
   String? experince;
   String? lisenceNumber;
@@ -26,6 +27,7 @@ class Dokter {
 
   Dokter.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+
     name = json['name'];
     experince = json['experience'];
     lisenceNumber = json['lisence_number'];

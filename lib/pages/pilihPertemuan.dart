@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:haldac/model/category_model.dart';
 import 'package:haldac/model/dokter_model.dart';
 import 'package:haldac/pages/pilihTanggal.dart';
+import 'package:haldac/pages/summary.dart';
 import 'package:haldac/pages/webView.dart';
 import 'package:haldac/provider/appointment_provider.dart';
 import 'package:haldac/provider/auth_provider.dart';
@@ -25,7 +27,9 @@ class JumlahPertemuan extends StatefulWidget {
 }
 
 class _JumlahPertemuanState extends State<JumlahPertemuan> {
+  var dateFormat = DateFormat('hh:mm a');
   int isZero = 0;
+  int dropdownValue = 1;
   @override
   Widget build(BuildContext context) {
     AppointmentProvider appointmentProvider =
@@ -82,13 +86,18 @@ class _JumlahPertemuanState extends State<JumlahPertemuan> {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Container(
-                          margin: EdgeInsets.only(top: 40, left: 10),
-                          child: Icon(
-                            Icons.arrow_back_rounded,
-                            color: white,
-                            size: 40,
-                          )),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                            margin: EdgeInsets.only(top: 40, left: 10),
+                            child: Icon(
+                              Icons.arrow_back_rounded,
+                              color: white,
+                              size: 40,
+                            )),
+                      ),
                     ),
                   ],
                 ),
@@ -206,32 +215,129 @@ class _JumlahPertemuanState extends State<JumlahPertemuan> {
                             border: Border.all(color: primary),
                             borderRadius: BorderRadius.circular(8)),
                         child: Center(
-                          child: TextFormField(
-                            onChanged: (value) {
-                              if (value == '') {
-                                value = (widget.dokter.price).toString();
-                                isZero = 0;
-                              } else {
-                                value =
-                                    (widget.dokter.price! * num.parse(value))
-                                        .toString();
-                                isZero = 1;
-                              }
+                          child: DropdownButton<int>(
+                            value: dropdownValue,
+                            isExpanded: true,
+                            // icon: const Icon(Icons.arrow_downward),
+                            // iconSize: 24,
+                            // elevation: 16,
+                            style: TextStyle(color: hijauBlock),
+                            underline: Container(
+                              height: 0,
+                            ),
 
-                              print("Ini Value dari parameter : " + value);
-                              appointmentProvider.setNilai = int.parse(value);
-                              print(appointmentProvider.getNilai);
-                              print(isZero);
+                            onChanged: (int? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                                print(dropdownValue);
+                              });
                             },
-                            keyboardType: TextInputType.number,
-                            controller: widget.text1,
-                            decoration: InputDecoration.collapsed(
-                                hintText:
-                                    ('Masukan Jumlah Pertemuan (Min 1 Pertemuan)')
-                                        .toString()),
+                            items: <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                                .map<DropdownMenuItem<int>>((int value) {
+                              return DropdownMenuItem<int>(
+                                value: value,
+                                child: Text('$value Pertemuan'),
+                              );
+                            }).toList(),
                           ),
+                          // child: TextFormField(
+                          //   onChanged: (value) {
+                          //     if (value == '') {
+                          //       value = (widget.dokter.price).toString();
+                          //       isZero = 0;
+                          //     } else {
+                          //       value =
+                          //           (widget.dokter.price! * num.parse(value))
+                          //               .toString();
+                          //       isZero = 1;
+                          //     }
+
+                          //     print("Ini Value dari parameter : " + value);
+                          //     appointmentProvider.setNilai = int.parse(value);
+                          //     print(appointmentProvider.getNilai);
+                          //     print(isZero);
+                          //   },
+                          //   keyboardType: TextInputType.number,
+                          //   controller: widget.text1,
+                          //   decoration: InputDecoration.collapsed(
+                          //       hintText:
+                          //           ('Masukan Jumlah Pertemuan (Min 1 Pertemuan)')
+                          //               .toString()),
+                          // ),
                         ),
                       ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     DatePicker.showDatePicker(context,
+                      //         showTitleActions: true,
+                      //         minTime: DateTime.now(), onChanged: (date) {
+                      //       print('change $date in time zone ' +
+                      //           date.timeZoneOffset.inHours.toString());
+                      //     }, onConfirm: (date) {
+                      //       print(date);
+                      //       appointmentProvider.waktu = date;
+                      //       print(
+                      //           'Nilai appointment waktu : ${appointmentProvider.waktu}');
+                      //     });
+                      //   },
+                      //   child: Container(
+                      //     padding: EdgeInsets.only(left: 30, right: 30),
+                      //     margin: EdgeInsets.only(top: 10),
+                      //     height: 50,
+                      //     width: MediaQuery.of(context).size.width - 60,
+                      //     decoration: BoxDecoration(
+                      //         border: Border.all(color: primary),
+                      //         borderRadius: BorderRadius.circular(8)),
+                      //     child: Center(
+                      //       child: Text(
+                      //         dateFormat
+                      //             .format(appointmentProvider.waktu)
+                      //             .toString(),
+                      //         style: dateText.copyWith(
+                      //             fontSize: 14, fontWeight: medium),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   padding: EdgeInsets.only(left: 30, right: 30),
+                      //   margin: EdgeInsets.only(top: 10),
+                      //   height: 50,
+                      //   width: MediaQuery.of(context).size.width - 60,
+                      //   decoration: BoxDecoration(
+                      //       border: Border.all(color: primary),
+                      //       borderRadius: BorderRadius.circular(8)),
+                      //   child: Center(
+                      //     child: Text(
+                      //       (dropdownValue == '30')
+                      //           ? dateFormat
+                      //               .format(appointmentProvider.waktu
+                      //                   .add(Duration(minutes: 30)))
+                      //               .toString()
+                      //           : (dropdownValue == '45')
+                      //               ? dateFormat
+                      //                   .format(appointmentProvider.waktu
+                      //                       .add(Duration(minutes: 45)))
+                      //                   .toString()
+                      //               : (dropdownValue == '60')
+                      //                   ? dateFormat
+                      //                       .format(appointmentProvider.waktu
+                      //                           .add(Duration(minutes: 60)))
+                      //                       .toString()
+                      //                   : (dropdownValue == '120')
+                      //                       ? dateFormat
+                      //                           .format(appointmentProvider
+                      //                               .waktu
+                      //                               .add(
+                      //                                   Duration(minutes: 120)))
+                      //                           .toString()
+                      //                       : dateFormat.format(
+                      //                           appointmentProvider.waktu),
+                      //       style: dateText.copyWith(
+                      //           fontSize: 14, fontWeight: medium),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 24,
                       ),
@@ -241,70 +347,76 @@ class _JumlahPertemuanState extends State<JumlahPertemuan> {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Total Biaya',
-                            style: borderText.copyWith(
-                                fontWeight: medium, fontSize: 14),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(right: 30),
+
+                      GestureDetector(
+                        onTap: () {
+                          // String? sesiAkhir;
+                          // if (dropdownValue == '30') {
+                          //   sesiAkhir = dateFormat.format(appointmentProvider
+                          //       .waktu
+                          //       .add(Duration(minutes: 30)));
+                          // } else if (dropdownValue == '45') {
+                          //   sesiAkhir = dateFormat.format(appointmentProvider
+                          //       .waktu
+                          //       .add(Duration(minutes: 45)));
+                          // } else if (dropdownValue == '60') {
+                          //   sesiAkhir = dateFormat.format(appointmentProvider
+                          //       .waktu
+                          //       .add(Duration(minutes: 60)));
+                          // } else if (dropdownValue == '120') {
+                          //   sesiAkhir = dateFormat.format(appointmentProvider
+                          //       .waktu
+                          //       .add(Duration(minutes: 120)));
+                          // }
+
+                          // print(sesiAkhir);
+
+                          // handleMidtrans();
+                          var listSesi = [];
+                          var listTanggal = [];
+                          var listSesiAkhir = [];
+                          var listHarga = [];
+                          for (var i = 0; i < dropdownValue; i++) {
+                            listSesi.add('30');
+                            listTanggal.add(DateTime.now());
+                            listSesiAkhir
+                                .add(DateTime.now().add(Duration(minutes: 30)));
+                            listHarga.add(widget.dokter.price);
+                          }
+
+                          print(listSesi);
+
+                          appointmentProvider.sesi.clear();
+                          appointmentProvider.sesi.length = 0;
+                          appointmentProvider.time.clear();
+                          appointmentProvider.time.length = 0;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PilihTanggal(
+                                      widget.dokter,
+                                      dropdownValue,
+                                      listSesi,
+                                      listTanggal,
+                                      listSesiAkhir,
+                                      listHarga)));
+                        },
+                        child: Container(
+                          height: 55,
+                          margin: EdgeInsets.only(bottom: 10, top: 30),
+                          width: MediaQuery.of(context).size.width - 60,
+                          decoration: BoxDecoration(
+                              color: buttonHijau,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Center(
                             child: Text(
-                              (appointmentProvider.getNilai == 1)
-                                  ? NumberFormat.currency(locale: 'id')
-                                      .format(widget.dokter.price)
-                                      .toString()
-                                  : NumberFormat.currency(locale: 'id')
-                                      .format(appointmentProvider.getNilai)
-                                      .toString(),
-                              style: borderText.copyWith(
-                                  fontSize: 14, fontWeight: medium),
+                              'Pembayaran',
+                              style: whiteText.copyWith(
+                                  fontSize: 18, fontWeight: semiBold),
                             ),
-                          )
-                        ],
+                          ),
+                        ),
                       ),
-
-                      // child: Text((appointmentProvider.getNilai == '')
-                      //     ? widget.dokter.price.toString()
-                      //     : appointmentProvider.getNilai.toString())
-                      // (num.parse(appointmentProvider.getNilai) * widget.price)
-                      //     .toString()
-                      // child: TextFormField(
-                      //   keyboardType: TextInputType.number,
-                      //   controller: text,
-                      //   decoration: InputDecoration.collapsed(hintText: ''),
-                      // ),
-
-                      (isZero == 0)
-                          ? Container()
-                          : GestureDetector(
-                              onTap: () {
-                                // handleMidtrans();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => PilihTanggal(
-                                            widget.dokter,
-                                            int.parse(widget.text1.text))));
-                              },
-                              child: Container(
-                                height: 55,
-                                margin: EdgeInsets.only(bottom: 10, top: 30),
-                                width: MediaQuery.of(context).size.width - 60,
-                                decoration: BoxDecoration(
-                                    color: buttonHijau,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Center(
-                                  child: Text(
-                                    'Atur Tanggal',
-                                    style: whiteText.copyWith(
-                                        fontSize: 18, fontWeight: semiBold),
-                                  ),
-                                ),
-                              ),
-                            ),
                     ],
                   ),
                 ),

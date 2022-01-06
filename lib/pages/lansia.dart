@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:haldac/model/category_model.dart';
+import 'package:haldac/pages/pilihaLogin.dart';
+import 'package:haldac/provider/auth_provider.dart';
 import 'package:haldac/theme.dart';
+import 'package:provider/provider.dart';
 
 class InfoLansia extends StatelessWidget {
   const InfoLansia({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(top: 30, left: 16, bottom: 10),
@@ -18,7 +24,10 @@ class InfoLansia extends StatelessWidget {
 
     Widget button(String? text) {
       return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PilihanLogin()));
+        },
         child: Container(
           margin: EdgeInsets.only(left: 20, right: 20, top: 15),
           child: Container(
@@ -53,7 +62,7 @@ class InfoLansia extends StatelessWidget {
         margin: EdgeInsets.only(top: 100),
         child: Column(
           children: [
-            button('Gangguan Kesehatan'),
+            GestureDetector(child: button('Gangguan Kesehatan')),
             button('Pola Makan'),
             button('Tips latihan atau terapi'),
           ],

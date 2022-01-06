@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:haldac/pages/imagePicker.dart';
 import 'package:haldac/provider/auth_provider.dart';
 import 'package:haldac/theme.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,12 +15,11 @@ TextEditingController nameInput = TextEditingController(text: '');
 TextEditingController usernamaInput = TextEditingController(text: '');
 TextEditingController email = TextEditingController(text: '');
 TextEditingController phone = TextEditingController(text: '');
+bool isLoading = false;
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    bool isLoading = false;
-
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     editHandlerButton() async {
@@ -54,17 +56,48 @@ class _ProfilePageState extends State<ProfilePage> {
         margin: EdgeInsets.only(top: 90, left: 108, right: 107, bottom: 15),
         child: Column(
           children: [
-            Container(
-              width: 160,
-              height: 160,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage('assets/UserPic.png'),
-                      fit: BoxFit.cover)),
-            ),
+            CachedNetworkImage(
+                imageBuilder: (context, imageProvider) {
+                  return Stack(alignment: Alignment.bottomRight, children: [
+                    Container(
+                        height: 160,
+                        width: 160,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover))),
+                    Positioned(
+                      bottom: 15,
+                      right: 5,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              (MaterialPageRoute(
+                                  builder: (context) => GetImage())));
+                        },
+                        child: Image.asset(
+                          'assets/change.png',
+                          width: 30,
+                          height: 30,
+                          color: primary,
+                        ),
+                      ),
+                    )
+                  ]);
+                },
+                imageUrl: (authProvider.user.photoUrl != null)
+                    ? authProvider.user.photoUrl as String
+                    : authProvider.user.profilePhotoUrl as String,
+                // progressIndicatorBuilder:
+                //     (context, url, downloadProgress) =>
+                //         CircularProgressIndicator(
+                //             value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                placeholder: (context, url) => CircularProgressIndicator(),
+                fit: BoxFit.contain),
             SizedBox(
-              height: 10,
+              height: 24,
             ),
             Text(
               authProvider.user.name as String,

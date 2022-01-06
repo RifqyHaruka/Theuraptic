@@ -45,13 +45,11 @@ class _DaftarPageState extends State<DaftarPage> {
         height: MediaQuery.of(context).size.height * 50 / 100,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: hijauBlock,
+          color: white,
         ),
         child: Container(
           margin: EdgeInsets.only(top: 80),
-          child: Image.asset(
-            'assets/DoktorSplash.png',
-          ),
+          child: Image.asset('assets/loginuser.png', height: 50, width: 50),
         ),
       );
     }
@@ -89,6 +87,7 @@ class _DaftarPageState extends State<DaftarPage> {
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, '/sign-in');
+                print(AuthProvider().roles);
               },
               child: Container(
                 width: 150,
@@ -133,58 +132,6 @@ class _DaftarPageState extends State<DaftarPage> {
             ])),
       );
     }
-
-    // Widget button() {
-    //   return Container(
-    //     margin: EdgeInsets.only(top: 100),
-    //     child: Row(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         GestureDetector(
-    //           child: Container(
-    //             width: 110,
-    //             height: 55,
-    //             decoration: BoxDecoration(
-    //                 borderRadius: BorderRadius.circular(12),
-    //                 color: buttonMerah),
-    //             child: Center(
-    //               child: Text(
-    //                 'Daftar',
-    //                 style:
-    //                     whiteText.copyWith(fontSize: 18, fontWeight: semiBold),
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 100,
-    //         ),
-    //         SizedBox(
-    //           width: 5,
-    //         ),
-    //         GestureDetector(
-    //           onTap: () {
-    //             Navigator.pushNamed(context, '/sign-in');
-    //           },
-    //           child: Container(
-    //             width: 110,
-    //             height: 55,
-    //             decoration: BoxDecoration(
-    //                 borderRadius: BorderRadius.circular(12),
-    //                 color: buttonHijau),
-    //             child: Center(
-    //               child: Text(
-    //                 'Masuk',
-    //                 style:
-    //                     whiteText.copyWith(fontSize: 18, fontWeight: semiBold),
-    //               ),
-    //             ),
-    //           ),
-    //         )
-    //       ],
-    //     ),
-    //   );
-    // }
 
     return SafeArea(
       child: Scaffold(

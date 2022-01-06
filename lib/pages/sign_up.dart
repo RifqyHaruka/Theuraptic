@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:haldac/pages/home.dart';
+import 'package:haldac/pages/imagePicker.dart';
 import 'package:haldac/provider/auth_provider.dart';
 import 'package:haldac/theme.dart';
 import 'package:haldac/widget/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -36,9 +39,16 @@ class _SignUpPageState extends State<SignUpPage> {
           usernameController.text,
           emailController.text,
           passwordController.text,
-          phoneController.text))
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-      else if (await authProvider.register(
+          phoneController.text)) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('roles', 'USER');
+        authProvider.roles = 'USER';
+        pref.setString('token', authProvider.user.token as String);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => GetImage()),
+            (route) => false);
+      } else if (await authProvider.register(
               nameController.text,
               usernameController.text,
               emailController.text,

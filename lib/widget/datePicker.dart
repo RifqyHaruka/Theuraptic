@@ -57,13 +57,13 @@ class _DatePickState extends State<DatePick> {
                   maxTime: DateTime(2020, 6, 7, 05, 09), onChanged: (date) {
                 print('change $date in time zone ' +
                     date.timeZoneOffset.inHours.toString());
-                appointmentProvider.waktu = date.toString();
+                appointmentProvider.waktu = date.toString() as DateTime;
                 print(appointmentProvider.waktu);
               }, onConfirm: (date) {
                 print('confirm $date');
-                appointmentProvider.waktu = date.toString();
+                appointmentProvider.waktu = date.toString() as DateTime;
                 print(appointmentProvider.waktu);
-                widget.text1.text = appointmentProvider.waktu;
+                widget.text1.text = appointmentProvider.waktu as String;
                 print(widget.text1.text);
               }, locale: LocaleType.id);
             },

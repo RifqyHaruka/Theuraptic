@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:haldac/provider/article_provider.dart';
+import 'package:haldac/provider/auth_provider.dart';
+
 import 'package:haldac/theme.dart';
+import 'package:provider/provider.dart';
 
 class InfoKesehatan extends StatelessWidget {
   const InfoKesehatan({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    ArticleProvider articleProvider = Provider.of<ArticleProvider>(context);
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(top: 30, left: 16, bottom: 10),
@@ -20,7 +27,7 @@ class InfoKesehatan extends StatelessWidget {
               height: 40,
             ),
             Text(
-              'Ketahui informasi dari keluhan yang \nAnda rasakan.',
+              articleProvider.articleId.title.toString(),
               style: whiteText.copyWith(fontSize: 14, fontWeight: medium),
             )
           ],

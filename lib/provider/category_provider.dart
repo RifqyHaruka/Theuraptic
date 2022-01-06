@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:haldac/model/category_model.dart';
 import 'package:haldac/services/category_services.dart';
@@ -41,5 +43,12 @@ class CategoryProvider with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  File? _image;
+  File? get image => _image;
+  set image(File? image) {
+    _image = image;
+    notifyListeners();
   }
 }

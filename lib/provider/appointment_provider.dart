@@ -26,6 +26,25 @@ class AppointmentProvider with ChangeNotifier {
     }
   }
 
+  Future<bool> getAppointmentDetail(
+      int? appointmentId,
+      int? doctorsId,
+      String? appointmentStart,
+      String token,
+      String? appointmentEnd,
+      int duration,
+      int price) async {
+    try {
+      await AppointmentServices().appointmentDetail(appointmentId, doctorsId,
+          appointmentStart, token, appointmentEnd, duration, price);
+      return true;
+    } catch (e) {
+      print(e);
+      print('Salah di Provider Appointment Detail');
+      return false;
+    }
+  }
+
   int _nilai = 1;
 
   int get getNilai => _nilai;
@@ -35,11 +54,27 @@ class AppointmentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String _waktu = '';
+  DateTime _waktu = DateTime.now();
 
-  String get waktu => _waktu;
-  set waktu(String waktu) {
+  DateTime get waktu => _waktu;
+  set waktu(DateTime waktu) {
     _waktu = waktu;
+    notifyListeners();
+  }
+
+  List<String> _sesi = [''];
+  List<String> get sesi => _sesi;
+  set sesi(List<String> sesi) {
+    _sesi = sesi;
+    notifyListeners();
+  }
+
+  List<DateTime> _time = [];
+
+  List<DateTime> get time => _time;
+  set time(List<DateTime> time) {
+    if (_time.isEmpty) {}
+    _time = time;
     notifyListeners();
   }
 }

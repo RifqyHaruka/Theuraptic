@@ -4,6 +4,10 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:haldac/model/user_model.dart';
+import 'package:haldac/pages/history.dart';
+import 'package:haldac/pages/imagePicker.dart';
+import 'package:haldac/pages/pilihaLogin.dart';
+import 'package:haldac/pages/sign_up.dart';
 
 import 'package:haldac/provider/auth_provider.dart';
 import 'package:haldac/provider/category_provider.dart';
@@ -23,24 +27,31 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  PusherClient? pusher;
-  Channel? channel;
-
   bool isAuth = false;
 
   getInit() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     var token = pref.get('token');
-    if (token != null) {
+    var roles = pref.get('roles');
+    print(token);
+    print(roles);
+    if (token != null && roles == 'USER') {
       setState(() {
         isAuth = true;
         print(token);
+        print(roles);
         getInit2();
       });
+    } else if (token != null && roles == 'TERAPIS') {
+      setState(() {
+        print(roles);
+        getDokter();
+      });
     } else {
-      Timer(Duration(seconds: 2), () {
-        Navigator.pushNamed(context, '/daftar');
+      Timer(Duration(seconds: 3), () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PilihanLogin()));
       });
     }
   }
@@ -48,24 +59,24 @@ class _SplashPageState extends State<SplashPage> {
   getDokter() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    var token = pref.getString('token');
-    await Provider.of<DokterProvider>(context, listen: false).getDokters(token);
+    pref.getString('token');
+    await Provider.of<AuthProvider>(context, listen: false).getDokter();
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/main-therapis', (route) => false);
   }
 
   @override
   void initState() {
     getInit();
-    getDokter();
-    // Timer(Duration(seconds: 2), () {
-    //   Navigator.pushNamed(context, '/daftar');
-    // });
+    // getDokter();
 
     //   print(isAuth);
     // } else {
-    //   Timer(Duration(seconds: 3), () {
-    //     Navigator.pushNamed(context, '/daftar');
-    //   });
-    // }
+    // Timer(Duration(seconds: 3), () {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => PilihanLogin()));
+    // });
+    // // }
     // Timer(Duration(seconds: 2), () {
     //   Navigator.pushNamed(context, '/daftar');
     // });
@@ -109,7 +120,7 @@ class _SplashPageState extends State<SplashPage> {
     pref.get('token');
 
     await Provider.of<AuthProvider>(context, listen: false).getData();
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
   }
 
   @override
@@ -126,59 +137,62 @@ class _SplashPageState extends State<SplashPage> {
               height: 186,
             ),
             SizedBox(
-              height: 10,
+              height: 16,
             ),
-            GestureDetector(
-              onTap: () {
-                pusher!.disconnect();
-              },
-              child: Container(
-                width: 100,
-                height: 50,
-                color: Colors.black,
-              ),
-            )
+            CircularProgressIndicator(
+              backgroundColor: white,
+            ),
+
+            // (isLoading == true)
+            //     ? SizedBox(
+            //         child: CircularProgressIndicator(
+            //           backgroundColor: white,
+            //         ),
+            //         width: 16,
+            //         height: 16,
+            //       )
+            //     : Container()
           ],
         ),
       ),
     );
   }
 
-  Future<void> initPusher() async {
-    // try {
-    //   await Pusher.init('508d712f416e23d84bf4', PusherOptions(cluster: 'ap1'));
-    // } catch (e) {
-    //   print(e);
-    // }
+  // Future<void> initPusher() async {
+  //   // try {
+  //   //   await Pusher.init('508d712f416e23d84bf4', PusherOptions(cluster: 'ap1'));
+  //   // } catch (e) {
+  //   //   print(e);
+  //   // }
 
-    // Pusher.connect(onConnectionStateChange: (val) {
-    //   print(val.currentState);
-    // }, onError: (err) {
-    //   print(err.message);
-    // });
+  //   // Pusher.connect(onConnectionStateChange: (val) {
+  //   //   print(val.currentState);
+  //   // }, onError: (err) {
+  //   //   print(err.message);
+  //   // });
 
-    try {
-      PusherClient pusher =
-          PusherClient('508d712f416e23d84bf4', PusherOptions(cluster: 'ap1'));
-      pusher.connect();
-      pusher.onConnectionStateChange((state) {
-        print(state!.currentState);
-      });
-      pusher.onConnectionError((error) {
-        print(error!.message);
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
+  //   try {
+  //     PusherClient pusher =
+  //         PusherClient('508d712f416e23d84bf4', PusherOptions(cluster: 'ap1'));
+  //     pusher.connect();
+  //     pusher.onConnectionStateChange((state) {
+  //       print(state!.currentState);
+  //     });
+  //     pusher.onConnectionError((error) {
+  //       print(error!.message);
+  //     });
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-  Future<void> getMessage() async {
-    // try {
-    //   List<MessageModel> message = await MessageService().getMessage(token);
-    //   _message = message;
-    // } catch (e) {
-    //   print('salah di provider');
-    //   print(e);
-    // }
-  }
+  // Future<void> getMessage() async {
+  //   // try {
+  //   //   List<MessageModel> message = await MessageService().getMessage(token);
+  //   //   _message = message;
+  //   // } catch (e) {
+  //   //   print('salah di provider');
+  //   //   print(e);
+  //   // }
+  // }
 }

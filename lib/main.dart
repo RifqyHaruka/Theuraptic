@@ -4,15 +4,23 @@ import 'package:haldac/pages/anak.dart';
 import 'package:haldac/pages/appointment.dart';
 import 'package:haldac/pages/daftar.dart';
 import 'package:haldac/pages/home.dart';
+import 'package:haldac/pages/homeTherapis.dart';
 import 'package:haldac/pages/lansia.dart';
+import 'package:haldac/pages/mainTherapis.dart';
+import 'package:haldac/pages/pilihTanggal.dart';
+import 'package:haldac/pages/pilihaLogin.dart';
 import 'package:haldac/pages/profile.dart';
 import 'package:haldac/pages/sign_in.dart';
 import 'package:haldac/pages/sign_up.dart';
+import 'package:haldac/pages/summary.dart';
 import 'package:haldac/provider/appointment_provider.dart';
+import 'package:haldac/provider/article_provider.dart';
 import 'package:haldac/provider/auth_provider.dart';
 import 'package:haldac/provider/category_provider.dart';
 import 'package:haldac/provider/dokter_provider.dart';
+import 'package:haldac/provider/historyAppointment_provider..dart';
 import 'package:haldac/provider/message_provider.dart';
+
 import 'package:haldac/splash.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +40,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
         ),
-        ChangeNotifierProvider(create: (context) => AppointmentProvider())
+        ChangeNotifierProvider(create: (context) => AppointmentProvider()),
+        ChangeNotifierProvider(
+            create: (context) => HistoryAppointmentProvider()),
+        ChangeNotifierProvider(create: (context) => ArticleProvider())
       ],
       child: MaterialApp(
         builder: (BuildContext context, Widget? child) {
@@ -54,7 +65,9 @@ class MyApp extends StatelessWidget {
           '/appointment': (context) => Appointment(),
           '/chat-detail': (context) => ChatDetail(),
           '/anak': (context) => TumbuhKembangAnak(),
-          '/lansia': (context) => InfoLansia()
+          '/lansia': (context) => InfoLansia(),
+          '/pilihanLogin': (context) => PilihanLogin(),
+          '/main-therapis': (context) => MainTherapis()
         },
       ),
     );

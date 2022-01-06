@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:haldac/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class FotoWidget extends StatelessWidget {
-  const FotoWidget({Key? key}) : super(key: key);
-
+  final String? imagePath;
+  FotoWidget({this.imagePath});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,17 +21,19 @@ class FotoWidget extends StatelessWidget {
 }
 
 class FotoKecil extends StatelessWidget {
-  const FotoKecil({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     return Container(
       height: 60,
       width: 60,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-              image: AssetImage('assets/profilePic.png'), fit: BoxFit.cover)),
+              image: NetworkImage((authProvider.user.photoUrl == null)
+                  ? authProvider.user.profilePhotoUrl.toString()
+                  : authProvider.user.photoUrl.toString()),
+              fit: BoxFit.cover)),
     );
   }
 }
